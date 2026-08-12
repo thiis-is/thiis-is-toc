@@ -27,11 +27,12 @@ Bump `meta.json.version` (and `effectiveDate`) whenever the Terms/Privacy change
 
 ## How it reaches the UI
 
-On every push to `master`, `.github/workflows/publish.yml`:
+This repo is **public**. The landing app (`thiis-is-ui`) pulls the content at **build time** — its
+`scripts/fetch-toc.mjs` fetches `content/*.md` + `meta.json` from this repo's `master`, fills the
+`{{company.*}}` tokens, and writes a committed `src/legal/toc.json` snapshot that the legal pages
+render. So **changes here land in the UI on its next deploy** (i.e. the next merge to `thiis-is-ui`
+`master`). There is no cross-repo trigger or token to manage.
 
-1. **Notify customers (placeholder)** — a no-op hook where the email-on-change notification will be wired. See issue **#1**.
-2. **Trigger UI update** — sends a `repository_dispatch` (`event_type: toc-updated`) to `thiis-is/thiis-is-ui`, whose deploy workflow pulls this repo's content, renders the pages, and redeploys.
-
-### Prerequisite
-
-A repo secret **`UI_DISPATCH_TOKEN`** — a GitHub token (fine-grained PAT or App installation token) with **Actions: write** (and Contents: read) on `thiis-is/thiis-is-ui` — so the dispatch can trigger the UI build.
+On every push to `master`, `.github/workflows/publish.yml` runs one step: a **placeholder
+customer-notification hook** — a no-op today, the intended home for the email-on-change notification
+(issue **#1**).
