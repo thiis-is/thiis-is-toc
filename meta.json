@@ -1,0 +1,19 @@
+{
+  "version": "2026-08-10",
+  "effectiveDate": "2026-08-10",
+  "documents": {
+    "terms": { "title": "Terms of Service", "file": "content/terms.md", "route": "/terms" },
+    "privacy": { "title": "Privacy Policy", "file": "content/privacy.md", "route": "/privacy" },
+    "cookies": { "title": "Cookie Policy", "file": "content/cookies.md", "route": "/cookies" }
+  },
+  "company": {
+    "name": "doubleBlind OÜ",
+    "jurisdiction": "Estonia",
+    "address": "[Registered address — to be completed]",
+    "regNo": "[Company registration number — to be completed]",
+    "privacyEmail": "privacy@thiisis.com",
+    "supportEmail": "support@thiisis.com",
+    "service": "thiis.is",
+    "supervisoryAuthority": "Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon)"
+  }
+}

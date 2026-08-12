@@ -1,0 +1,45 @@
+name: Publish legal docs
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      # ── Placeholder: notify customers of material changes ──────────────────
+      # TODO (thiis-is-toc#1): when meta.json "version" bumps materially, email
+      # existing customers about the change (new effective date + links to the
+      # updated docs). Depends on the email-deliverability work (thiis-is-ui#25).
+      # Left as an intentional no-op hook for now.
+      - name: Notify customers of TOC change (placeholder)
+        run: |
+          VERSION=$(python3 -c "import json;print(json.load(open('meta.json'))['version'])")
+          echo "TODO thiis-is-toc#1 — notify customers. Current TOC version: $VERSION (no-op)"
+
+      # ── Update the UI ──────────────────────────────────────────────────────
+      # Trigger the landing app to pull the latest content and redeploy.
+      # Requires repo secret UI_DISPATCH_TOKEN (Actions:write on thiis-is-ui).
+      - name: Trigger thiis-is-ui rebuild
+        env:
+          UI_DISPATCH_TOKEN: ${{ secrets.UI_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$UI_DISPATCH_TOKEN" ]; then
+            echo "::warning::UI_DISPATCH_TOKEN not set — skipping UI update dispatch."
+            exit 0
+          fi
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $UI_DISPATCH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/thiis-is/thiis-is-ui/dispatches \
+            -d '{"event_type":"toc-updated"}'
+          echo "Dispatched toc-updated to thiis-is-ui."
