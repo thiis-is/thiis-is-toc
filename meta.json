@@ -9,11 +9,11 @@
   "company": {
     "name": "doubleBlind OÜ",
     "jurisdiction": "Estonia",
-    "address": "[Registered address — to be completed]",
-    "regNo": "[Company registration number — to be completed]",
+    "address": "Harju maakond, Tallinn, Lasnamäe linnaosa, Sepapaja tn 6, 15551",
+    "regNo": "17503478",
     "privacyEmail": "privacy@thiisis.com",
     "supportEmail": "support@thiisis.com",
-    "service": "thiis.is",
+    "service": "thiisis.com/thiis.is",
     "supervisoryAuthority": "Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon)"
   }
 }
