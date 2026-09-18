@@ -1,6 +1,6 @@
 # Cookie Policy
 
-{{company.service}} does not use advertising or cross-site tracking cookies. We rely on a small amount of first-party browser storage, split into essential and optional.
+By default, {{company.service}} does not use advertising or cross-site tracking cookies of its own. We rely on a small amount of first-party browser storage, split into essential and optional — plus one narrow, opt-in exception described below.
 
 ## Essential (always on)
 
@@ -14,6 +14,17 @@ These are necessary to provide the service and cannot be switched off.
 - **Diagnostics analytics** — Sentry performance tracing and Session Replay, used to diagnose errors and improve reliability. These run only if you accept.
 
 Third-party fonts (Google Fonts) are loaded on the dashboard to render the interface; they set no tracking cookies.
+
+## Retargeting pixels — only on links their owner enables
+
+Paid accounts can optionally configure one of their own links to fire a third-party retargeting pixel (Meta or Google Ads) when someone clicks it, so that account can advertise to its own visitors later. This is **off by default** and applies only to individual links whose owner has deliberately turned it on — most links never do this.
+
+When it applies:
+
+- Clicking that specific link briefly shows a loading page before continuing to its destination; that page is what fires the pixel.
+- Your browser contacts Meta and/or Google Ads directly, and each may set its own third-party cookies as part of its own advertising service — see [Meta's Cookie Policy](https://www.facebook.com/policy/cookies/) and [Google's Cookie Policy](https://policies.google.com/technologies/cookies).
+- We do not fire these pixels for visitors in the EU, UK, or EEA, regardless of the link's settings.
+- We do not receive, process, or store any data these pixels collect — see our [Privacy Policy](/privacy) for how this integration is disclosed there.
 
 ## Your choice
 
