@@ -1,6 +1,8 @@
 {
   "version": "2026-09-29",
   "effectiveDate": "2026-09-29",
+  "notify": false,
+  "summary": "",
   "documents": {
     "terms": { "title": "Terms of Service", "file": "content/terms.md", "route": "/terms" },
     "privacy": { "title": "Privacy Policy", "file": "content/privacy.md", "route": "/privacy" },
