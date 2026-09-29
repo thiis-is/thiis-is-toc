@@ -72,4 +72,4 @@ These Terms are governed by the laws of {{company.jurisdiction}}, and disputes a
 
 ## 15. Changes & contact
 
-We may update these Terms. Material changes will be announced and, where appropriate, we will ask you to re-accept. Continued use after changes take effect constitutes acceptance. Questions: [{{company.supportEmail}}](mailto:{{company.supportEmail}}).
+We may update these Terms. Before a material change takes effect, we will notify you by email at the address on your account, stating the date the updated Terms take effect. Your continued use of the service after that date constitutes acceptance of the updated Terms. If you do not agree to them, stop using the service and close your account before that date. Questions: [{{company.supportEmail}}](mailto:{{company.supportEmail}}).

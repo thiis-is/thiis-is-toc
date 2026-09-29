@@ -71,4 +71,4 @@ We use essential browser storage to run the service, optional diagnostics with y
 
 ## 8. Security, children & changes
 
-We apply technical and organisational measures to protect your data. The service is not directed to children under 16. We may update this Policy; material changes will be announced, and where appropriate we will ask you to re-accept.
+We apply technical and organisational measures to protect your data. The service is not directed to children under 16. We may update this Policy. Before a material change takes effect, we will inform you by email at the address on your account, stating the date the updated Policy takes effect.

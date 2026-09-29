@@ -23,7 +23,9 @@ The Markdown uses `{{company.*}}` tokens (e.g. `{{company.name}}`, `{{company.ad
 
 ## Versioning
 
-Bump `meta.json.version` (and `effectiveDate`) whenever the Terms/Privacy change **materially**. This must match the backend `CurrentTermsVersion` so the dashboard can prompt users to re-accept, and it gates the customer-notification hook.
+Bump `meta.json.version` (and `effectiveDate`) whenever the Terms/Privacy change **materially**. This must match the backend `CurrentTermsVersion`, and it triggers the change-notification email (see below).
+
+There is no re-acceptance step. Users accept the Terms at registration (the API records that version and date once), and continued use after a new version's `effectiveDate` constitutes acceptance. The email only informs.
 
 ## How it reaches the UI
 
