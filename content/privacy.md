@@ -14,6 +14,9 @@ This Privacy Policy explains how {{company.name}} ("we"), the data controller, p
 - **Diagnostics** — error and (with your consent) performance/session diagnostics via our processor Sentry, configured not to attach IP addresses.
 - **Retargeting pixel configuration** — if you enable this optional feature on your account or a link, we store the pixel ID(s) you provide (Meta or Google Ads). We do not receive or store any data the pixel itself collects once it fires in a visitor's browser — see "Retargeting pixels" below.
 - **Billing data** — if you purchase a paid plan, payment is handled by Stripe; we store your plan, subscription status, and Stripe identifiers, not your card details.
+- **Organization data** — if you create or join an organization (team), we associate your links, folders, and their analytics with that organization. That data becomes visible to the organization's other active members, in particular its owner — see "Organizations" below.
+- **Domain data** — if you configure a branded (`*.thiis.is`) subdomain or connect a domain you own, we store the domain/subdomain and, for a connected domain, the DNS records used to verify you control it.
+- **API keys** — if you create one, we store it (hashed, not in plain text) together with the access scopes you assign it.
 
 ## 3. Legal bases
 
@@ -27,7 +30,7 @@ This Privacy Policy explains how {{company.name}} ("we"), the data controller, p
 We share personal data only with service providers ("processors") that process it on our behalf under contract:
 
 - **Google / Firebase** — authentication and the redirect data store.
-- **Cloudflare** — edge delivery, redirects, and aggregate click analytics/storage (EU jurisdiction).
+- **Cloudflare** — edge delivery, redirects, aggregate click analytics/storage, and — if you connect your own domain — DNS verification and certificate issuance for it via Cloudflare for SaaS (EU jurisdiction).
 - **Google Cloud** — application hosting and the primary database (EU region).
 - **Sentry** — error and optional performance/session diagnostics (EU ingestion).
 - **Stripe** — payment processing for paid plans.
@@ -39,6 +42,10 @@ Where a processor transfers data outside the EEA, we rely on appropriate safegua
 If you enable a retargeting pixel on your account or a link, clicking that link sends the visitor's browser directly to **Meta** and/or **Google Ads** — services you have chosen to use, not services we use on your behalf. We are not party to what they do with that request: each operates under its own privacy policy and determines its own purposes for any data it receives ([Meta's Privacy Policy](https://www.facebook.com/privacy/policy/), [Google's Privacy Policy](https://policies.google.com/privacy)). We never receive, transmit, or store that data ourselves.
 
 We do not fire retargeting pixels for visitors in the EU, UK, or EEA.
+
+### Organizations — shared within your team, not with a new third party
+
+If you create or join an organization, the links, folders, and analytics you create inside it are not shared with any additional processor beyond those already listed above — but they **are** visible to the organization's other active members, in particular its owner, as part of how a shared workspace works. If you'd rather your activity not be visible to an organization, don't create links inside one; your personal account and its data remain separate from any organization you belong to.
 
 ## 5. Retention
 
@@ -64,4 +71,4 @@ We use essential browser storage to run the service, optional diagnostics with y
 
 ## 8. Security, children & changes
 
-We apply technical and organisational measures to protect your data. The service is not directed to children under 16. We may update this Policy; material changes will be announced, and where appropriate we will ask you to re-accept.
+We apply technical and organisational measures to protect your data. The service is not directed to children under 16. We may update this Policy. Before a material change takes effect, we will inform you by email at the address on your account, stating the date the updated Policy takes effect.
