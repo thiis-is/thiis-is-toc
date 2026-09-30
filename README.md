@@ -38,7 +38,7 @@ render. So **changes here land in the UI on its next deploy** (i.e. the next mer
 ## Change-notification email
 
 `.github/workflows/publish.yml` emails users about a new version (issue **#1**). The API does the
-sending, from `terms.thiisis.com`, via `POST /internal/notifications/terms-updated`.
+sending, from `terms@thiisis.com`, via `POST /internal/notifications/terms-updated`.
 
 To announce a material change:
 
