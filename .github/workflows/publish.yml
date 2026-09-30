@@ -59,7 +59,7 @@ jobs:
       - name: Send terms-change notice
         if: steps.decide.outputs.send == 'true'
         env:
-          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          API_BASE_URL: ${{ vars.API_BASE_URL }}
           INTERNAL_NOTIFY_SECRET: ${{ secrets.INTERNAL_NOTIFY_SECRET }}
           # Emails per run. Well under Cloudflare's daily quota, which is
           # shared with password-reset mail.

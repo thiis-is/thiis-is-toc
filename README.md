@@ -54,5 +54,5 @@ To announce a material change:
 
 Users who registered on the new version, and users with an unverified email, are skipped.
 
-Repo secrets: `API_BASE_URL` (e.g. `https://api.thiisis.com`) and `INTERNAL_NOTIFY_SECRET`, which
-must match the API's env var of the same name.
+Repo **variable** `API_BASE_URL` (`https://api.thiisis.com`) and repo **secret**
+`INTERNAL_NOTIFY_SECRET`, which must match the API's env var of the same name.
