@@ -1,6 +1,8 @@
 {
   "version": "2026-09-29",
   "effectiveDate": "2026-10-15",
+  "notify": true,
+  "summary": "Our Terms of Service and Privacy Policy now cover features added since they were last updated: custom and connected domains, organizations (team workspaces), API access, paid plans and billing, and the optional retargeting pixels link owners can enable. We've also made clear that we'll email you before any future material change takes effect.",
   "documents": {
     "terms": { "title": "Terms of Service", "file": "content/terms.md", "route": "/terms" },
     "privacy": { "title": "Privacy Policy", "file": "content/privacy.md", "route": "/privacy" },

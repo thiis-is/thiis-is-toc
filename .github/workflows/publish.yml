@@ -4,26 +4,86 @@ on:
   push:
     branches:
       - master
+  # Drains a notice that couldn't finish in one run (daily cap or a
+  # Cloudflare rate limit). A no-op once everyone has been notified.
+  schedule:
+    - cron: "0 9 * * *"
+  # Manual send/resume, e.g. for a version that was merged before this
+  # workflow could send for it.
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: terms-notice
+  cancel-in-progress: false
+
 # The UI (thiis-is-ui) pulls this repo's content at build time (fetch-toc), so
-# no dispatch to the UI is needed here. This workflow is the place for the
-# future customer-notification hook.
+# no dispatch to the UI is needed here. This workflow only sends the
+# Terms/Privacy change notification email (issue #1).
+#
+# The API does the sending: POST /internal/notifications/terms-updated emails
+# one batch of users who haven't been notified about meta.json's version yet
+# and returns how many remain. It's idempotent, so reruns never double-send.
+# It returns 409 if the API's CurrentTermsVersion doesn't match meta.json's
+# version yet — deploy the API bump first.
 jobs:
   notify:
     runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 2
 
-      # ── Placeholder: notify customers of material changes ──────────────────
-      # TODO (thiis-is-toc#1): when meta.json "version" bumps materially, email
-      # existing customers about the change (new effective date + links to the
-      # updated docs). Depends on the email-deliverability work (thiis-is-ui#25).
-      # Left as an intentional no-op hook for now.
-      - name: Notify customers of TOC change (placeholder)
+      - name: Decide whether to send
+        id: decide
         run: |
-          VERSION=$(python3 -c "import json;print(json.load(open('meta.json'))['version'])")
-          echo "TODO thiis-is-toc#1 — notify customers. Current TOC version: $VERSION (no-op)"
+          NOTIFY=$(jq -r '.notify // false' meta.json)
+          VERSION=$(jq -r '.version' meta.json)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [ "$NOTIFY" != "true" ]; then
+            echo "meta.json notify is not true — nothing to send."
+            echo "send=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ "${{ github.event_name }}" = "push" ]; then
+            PREV=$(git show HEAD^:meta.json 2>/dev/null | jq -r '.version' || echo "")
+            if [ "$PREV" = "$VERSION" ]; then
+              echo "version unchanged ($VERSION) — the daily schedule drains any leftovers."
+              echo "send=false" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+          fi
+          echo "send=true" >> "$GITHUB_OUTPUT"
+
+      - name: Send terms-change notice
+        if: steps.decide.outputs.send == 'true'
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          INTERNAL_NOTIFY_SECRET: ${{ secrets.INTERNAL_NOTIFY_SECRET }}
+          # Emails per run. Well under Cloudflare's daily quota, which is
+          # shared with password-reset mail.
+          DAILY_CAP: 200
+          BATCH_SIZE: 25
+        run: |
+          set -euo pipefail
+          BODY=$(jq -c --argjson batch "$BATCH_SIZE" \
+            '{version, effective_date: .effectiveDate, summary: (.summary // ""), batch_size: $batch}' meta.json)
+          SENT=0
+          for i in $(seq 1 100); do
+            RESP=$(curl -sS --fail-with-body -X POST "$API_BASE_URL/internal/notifications/terms-updated" \
+              -H "Content-Type: application/json" \
+              -H "TI-Internal-Auth: $INTERNAL_NOTIFY_SECRET" \
+              -d "$BODY")
+            echo "$RESP"
+            SENT=$((SENT + $(echo "$RESP" | jq '.sent')))
+            if [ "$(echo "$RESP" | jq '.remaining')" = "0" ]; then
+              echo "Done: everyone has been notified about ${{ steps.decide.outputs.version }}."; exit 0
+            fi
+            if [ "$(echo "$RESP" | jq '.rate_limited')" = "true" ]; then
+              echo "Cloudflare rate limit hit; the daily schedule resumes tomorrow."; exit 0
+            fi
+            if [ "$SENT" -ge "$DAILY_CAP" ]; then
+              echo "Sent $SENT today (cap $DAILY_CAP); the daily schedule resumes tomorrow."; exit 0
+            fi
+          done
